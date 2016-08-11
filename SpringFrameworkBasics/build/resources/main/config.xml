@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+       <bean id ="mysql" class="com.spring.demo.Database">
+             <!-- <property name="name" value="mysql"></property>
+              <property name="port" value="3306"></property>-->
+
+             <!-- <constructor-arg value="mysql" index="0"></constructor-arg>
+              <constructor-arg value="222" index="1"></constructor-arg>-->
+
+              <constructor-arg value="mysql" name="name"></constructor-arg>
+              <constructor-arg value="222" name="port"></constructor-arg>
+
+
+       </bean>
+       <bean id="expressTea" class="com.spring.demo.ExpressTea" init-method="initbean" destroy-method="destroybean"></bean>
+       <bean id="tea" class="com.spring.demo.Tea"></bean>
+<!--
+       <bean id="hotDrink" class="com.spring.demo.Tea"></bean>
+-->
+
+
+      <!-- <bean id="tearestaurant" class="com.spring.demo.Restaurant">
+              <property name="hotDrink" ref="tea"></property>
+       </bean>
+       <bean id="expressrestaurant" class="com.spring.demo.Restaurant" name="testalias">
+              <constructor-arg ref="expressTea"/>
+       </bean>
+
+       <bean id="restaurant" class="com.spring.demo.Restaurant">
+              <constructor-arg>
+                     <bean id="tea" class="com.spring.demo.Tea"/>
+              </constructor-arg>
+       </bean>-->
+
+       <bean id="complexObject" class="com.spring.demo.Complex">
+       <property name="list">
+              <list>
+                     <value>1</value>
+                     <value>2</value>
+                     <value>3</value>
+                     <value>3</value>
+
+              </list>
+       </property>
+       <property name="set">
+              <set>
+                     <value>2</value>
+                     <value>3</value>
+                     <value>3</value>
+
+              </set>
+       </property>
+              <property name="map">
+                     <map>
+                            <entry key="1" value="One"/>
+                            <entry key="2" value="Two"/>
+                            <entry key="2" value="one"/>
+
+                     </map>
+              </property>
+</bean>
+<!--
+       <bean id="expressrestaurant1" class="com.spring.demo.Restaurant" autowire="byType"/>
+-->
+<!--
+       <bean id="expressrestaurant1" class="com.spring.demo.Restaurant" autowire="byName"/>
+-->
+<!--
+       <bean id="expressrestaurant1" class="com.spring.demo.Restaurant" autowire="constructor"/>
+-->
+       <bean id="expressrestaurant1" class="com.spring.demo.Restaurant" scope="singleton">
+              <property name="hotDrink" ref="tea"/>
+       </bean>
+       <bean id="expressrestaurant2" class="com.spring.demo.Restaurant" scope="prototype">
+              <property name="hotDrink" ref="tea"/>
+       </bean>
+
+       <bean id="aPoint" class="com.spring.demo.Point">
+           <property name="aAxis" value="10"/>
+           <property name="bAxis" value="100"/>
+       </bean>
+    <bean id="bPoint" class="com.spring.demo.Point">
+        <property name="aAxis" value="20"/>
+        <property name="bAxis" value="200"/>
+    </bean>
+    <bean id="cPoint" class="com.spring.demo.Point">
+        <property name="aAxis" value="30"/>
+        <property name="bAxis" value="300"/>
+    </bean>
+       <bean id="parent-triangle" class="com.spring.demo.Triangle">
+              <property name="aPoint" ref="aPoint"/>
+       </bean>
+       <bean id="triangle" class="com.spring.demo.Triangle" parent="parent-triangle" >
+              <property name="bPoint" ref="bPoint"/>
+              <property name="cPoint" ref="cPoint"/>
+
+       </bean>
+    <bean
+            class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+
+
+    <bean id="expressrestaurant" class="com.spring.demo.Restaurant" >
+        <property name="hotDrink" ref="tea"/>
+    </bean>
+
+    <bean id ="beanpostprocessor" class="com.spring.demo.BeanprocessorTest"/>
+</beans>

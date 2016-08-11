@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+       <bean id ="mysql" class="com.spring.demo.Database">
+               <property name="name" value="mysql"></property>
+               <property name="port" value="3306"></property>
+
+              <!-- <constructor-arg value="mysql" index="0"></constructor-arg>
+               <constructor-arg value="222" index="1"></constructor-arg>-->
+
+
+
+       </bean>
+    <bean id="dummy" class="com.spring.demo.Dummy"/>
+    <bean class="com.spring.demo.MyEventListener"/>
+    <bean class="com.spring.demo.CustomEventListener"/>
+    <bean class="com.spring.demo.MyAspect"/>
+    <bean id ="dummyTest" class="com.spring.demo.Dummytest">
+       </bean>
+
+    <!--<bean id="dummyTest" class="com.spring.demo.Dummytest">
+        <property name="age" value="#{23}"/>
+        <property name="name" value="#{'config bean'}"/>
+        <property name="list" value="#{{9,8,7,6}}"/>
+        <property name="map" value="#{{a:1,b:2}}"/>
+        <property name="country" value="#{systemProperties['user.country']}"/>
+        <property name="state" value="${valueFromFile}"/>
+
+
+    </bean>-->
+
+    <context:annotation-config/>
+    <!--<bean id="simpleAsyncTaskExecutor"
+          class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
+    <bean id="applicationEventMulticaster"
+          class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+        <property name="taskExecutor" ref="simpleAsyncTaskExecutor"/>
+    </bean>-->
+
+    <bean id="personalisedService" class="com.spring.demo.PersonalisedService">
+    <property name="age" value="#{dummyTest.age}"/>
+    <property name="incrementedAge" value="#{dummyTest.age + 1}"/>
+    <property name="isAgeGreaterThan10" value="#{dummyTest.age>10}"/>
+    <property name="firstElementOfList" value="#{dummyTest.list[0]}"/>
+    <property name="mapValue" value="#{dummyTest.map[a]}"/>
+    <property name ="employee"  value ="#{T(com.spring.demo.Person).getEmployeeViaStaticMethod()}"/></bean>
+    <aop:aspectj-autoproxy/>
+    <context:property-placeholder location="classpath:application.properties"/>
+</beans>
