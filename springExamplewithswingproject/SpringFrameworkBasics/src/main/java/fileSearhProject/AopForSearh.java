@@ -24,7 +24,9 @@ public class AopForSearh {
    // @Before("connectPointcut() || getStringPointcut()")
     @Before("execution(void main())")
     void beforeAdvice() {
-        System.out.println("Before advice is running");
+        System.out.println("Before advice is running1");
+                System.out.println("Before advice is running2");
+
     }
 
     @AfterReturning(pointcut = "execution(Integer getInteger())", returning = "returnValue")
